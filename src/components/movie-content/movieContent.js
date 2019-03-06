@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Card, Chip } from 'react-materialize';
+import { Row, Col, Card, Chip, Button } from 'react-materialize';
 
 const MOVIE_SEARCH_URL = 'https://api.themoviedb.org/3/movie/76341?api_key=';
 const MOVIE_POSTER_URL = 'https://image.tmdb.org/t/p/w300';
@@ -46,12 +46,18 @@ class MovieContent extends React.Component {
             <div>
               {movieGenres}
             </div>
-            <h3>
-              {movie.title}
-            </h3>
-            <p>
-              {movie.overview}
-            </p>
+            <div>
+              <h3>
+                {movie.title}
+              </h3>
+              <p>
+                {movie.overview}
+              </p>
+            </div>
+            <div class="button-card-section">
+              <Button waves='light' className="purple darken-4">Try again</Button>
+              <Button waves='light' className="grey">Watch the trailer</Button>
+            </div>
           </Col>
         </Row>
       </Card>
