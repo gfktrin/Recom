@@ -1,4 +1,8 @@
 import React from 'react';
+import { Row, Col, Card, Chip } from 'react-materialize';
+
+const MOVIE_SEARCH_URL = 'https://api.themoviedb.org/3/movie/76341?api_key=';
+const MOVIE_POSTER_URL = 'https://image.tmdb.org/t/p/w300';
 
 class MovieContent extends React.Component {
   constructor() {
@@ -14,7 +18,7 @@ class MovieContent extends React.Component {
 
   getMovieData = async() => {
     const response = await fetch(
-      'https://api.themoviedb.org/3/movie/76341?api_key='
+      MOVIE_SEARCH_URL
       +process.env.REACT_APP_THEMOVIEDB_KEY);
     const movieData = await response.json();
     console.log(movieData);
@@ -22,18 +26,35 @@ class MovieContent extends React.Component {
   }
 
   render() {
-    const movie = this.state.movie ? this.state.movie.title : '';
-    const moviePoster = this.state.movie ? 'https://image.tmdb.org/t/p/w300'+this.state.movie.poster_path : '';
+    const movie = this.state.movie ? this.state.movie : '';
+    const moviePoster = MOVIE_POSTER_URL+movie.poster_path;
+    const movieGenres = movie ? (
+      movie.genres.map(genre => (
+        <Chip>
+          {genre.name}
+        </Chip>
+      ))
+    ) : '';
 
     return(
-      <div>
-        <h2>
-          {movie}
-        </h2>
-        <div>
-          <img src={moviePoster} alt="Movie poster" />
-        </div>
-      </div>
+      <Card>
+        <Row>
+          <Col m={6} s={12}>
+            <img src={moviePoster} alt="Movie poster" />
+          </Col>
+          <Col m={5} s={12}>
+            <div>
+              {movieGenres}
+            </div>
+            <h3>
+              {movie.title}
+            </h3>
+            <p>
+              {movie.overview}
+            </p>
+          </Col>
+        </Row>
+      </Card>
     );
   }
 }
