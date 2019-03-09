@@ -55,9 +55,14 @@ class MovieContent extends React.Component {
   }
 
   getMoviePoster = (movie) => {
-    const moviePoster = MOVIE_POSTER_URL+movie.poster_path;
+    if (movie.poster_path) {
+      const moviePoster = MOVIE_POSTER_URL+movie.poster_path;
+      return (
+        <img src={moviePoster} alt="Movie poster" />
+      )
+    }
     return (
-      <img src={moviePoster} alt="Movie poster" />
+      <p>Poster not available</p>
     )
   }
 
