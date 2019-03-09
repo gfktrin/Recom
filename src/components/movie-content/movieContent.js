@@ -62,6 +62,9 @@ class MovieContent extends React.Component {
   }
 
   getMovieGenres = (movie) => {
+    if (!movie.genres) {
+      return null;
+    }
     return (
       movie.genres.map(genre => (
         <Chip>
